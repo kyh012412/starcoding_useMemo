@@ -1,52 +1,22 @@
 import { useMemo, useState } from 'react';
 import './App.css';
 
-const hardCalculate = (number) => {
-  console.log('어려운 계산!');
-  for (let i = 0; i < 999999999; i++) {}
-  return number + 10000;
-};
-
-const easyCalculate = (number) =>{
-  console.log("짱 쉬운 계산");
-  return number+1;
-}
-
 function App() {
-  const [hardNumber, setHardNumber] = useState(1);
-  const [easyNumber, setEasyNumber] = useState(1);
+  const [number, setNumber] = useState(0);
+  const [isKorea, setIsKorea] = useState(true);
 
-  // const hardSum = hardCalculate(hardNumber);
-
-  /**
-   * 두번째 인자에 있는 값이 바뀔때만 다시 계산을 한다.
-   * 현재의 경우 hardNumber이 바뀔때만 hardSum을 다시계산
-   */
-  const hardSum = useMemo(()=>{
-    return hardCalculate(hardNumber);
-  },[hardNumber]);
-  
-  const easySum = easyCalculate(easyNumber);
+  const location = isKorea ? '한국' : '외국' ;
 
   return (
     <div>
-      <h3>어려운 계산기</h3>
-      <input
-        type="number"
-        value={hardNumber}
-        onChange={(e) => setHardNumber(parseInt(e.target.value))}
-      />
-      <span> + 10000 = {hardSum}</span>
-
-      <hr></hr>
-
-      <h3>쉬운 계산기</h3>
-      <input
-        type="number"
-        value={easyNumber}
-        onChange={(e) => setEasyNumber(parseInt(e.target.value))}
-      />
-      <span> + 1 = {easySum}</span>
+      <h2>하루에 몇 끼 먹어요?</h2>
+      <input type='number' value={number}
+      onChange={e=>setNumber(e.target.value)}
+    />
+    <hr/>
+      <h2>어느 나라에 있어요?</h2>
+      <p>나라: {location}</p>
+      <button onClick={()=>setIsKorea(!isKorea)}>비행기</button>
     </div>
   );
 }
