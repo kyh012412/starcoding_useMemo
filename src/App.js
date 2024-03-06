@@ -5,13 +5,17 @@ function App() {
   const [number, setNumber] = useState(0);
   const [isKorea, setIsKorea] = useState(true);
 
-  const location = {
-    country :isKorea ? '한국' : '외국',
-  };
-
+  //location은 app이 다시호출될때 같아보여도 서로 다른 주소를 가지게 되고 다른것으로 인식되어서 useEffect가 재호출된다.
+  
+  const location = useMemo(()=>{
+    return  {
+        country :isKorea ? '한국' : '외국',
+      };
+  },[isKorea]);
+  
   useEffect(()=>{
     console.log('useEffect 호출');
-  },[location]);
+  },[isKorea]);
 
   return (
     <div>
